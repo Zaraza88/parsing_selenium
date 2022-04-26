@@ -16,7 +16,6 @@ def get_original_html_and_save():
     )
 
     try:
-
         driver = webdriver.Chrome(
             executable_path='/home/zaraza/Projects/Парсер/parserDB/chromedriver',
             options=options,
