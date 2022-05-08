@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from time import sleep
 from selenium.webdriver.common.by import By
 
 
@@ -24,21 +23,22 @@ def get_original_html_and_save():
             url='https://www.dns-shop.ru/catalog/17a8a01d16404e77/smartfony/'
         )
         driver.maximize_window()
-        sleep(5)
+        driver.implicitly_wait(5)
 
         click_on_the_city = driver.find_element(By.CLASS_NAME, 'location-icon').click()
-        sleep(2)
+        driver.implicitly_wait(2)
 
         city_input = driver.find_element(By.CLASS_NAME, 'form-control')
-        sleep(1)
+        driver.implicitly_wait(2)
+
         city_input.send_keys('Ростов-на-Дону')
-        sleep(4)
+        driver.implicitly_wait(4)
 
         click_on_selected_city = driver.find_element(
             By.XPATH, '//*[@id="select-city"]/div[4]/ul[5]/li[4]/a'
         ).click()
-        sleep(5)
-    
+        driver.implicitly_wait(5)
+
         #сохраняем каждую страницу в отдельный файл
         for page in range(3, 6):
 
