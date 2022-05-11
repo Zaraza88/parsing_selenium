@@ -1,22 +1,30 @@
 import psycopg2
 
 from config import HOST, USER, PASSWORD, BASE_NAME
-from pars import parse
+from pars import main
 
-def save_data_in_db():
-    """Сохраняем данные в бд"""
+class SaveDataInDB(object):
 
-    try:
-        connection = psycopg2.connect(
-            host=HOST,
-            user=USER,
-            password=PASSWORD,
-            database=BASE_NAME
-        )
+    def __init__(self, data, connection):
+        self.data = data
+        self.connection = connection
 
-        connection.autocommit = True
+    def save(self):
+        try:
+            self.create_a_database()
+            self.populate_the_database()   
+        except Exception as ex:
+            print(f'-[ERROR]-{ex}-[ERROR]-') 
+        finally:
+            if self.connection:
+                self.connection.close()
+                print('[INFO] Соединение закрыто')
 
-        with connection.cursor() as cursor:
+    #создаем базу данных
+    def create_a_database(self):
+        self.connection.autocommit = True
+
+        with self.connection.cursor() as cursor:
             cursor.execute(
                 """CREATE TABLE product(
                     id serial PRIMARY KEY,
@@ -25,23 +33,24 @@ def save_data_in_db():
                     link varchar(100));"""
             )
 
-        data = parse()
-        for d in data:
-            with connection.cursor() as cursor:
+    #заполняем бд данными парсинга
+    def populate_the_database(self):
+        for d in self.data:
+            with self.connection.cursor() as cursor:
                 cursor.execute(
                     f"""INSERT INTO product(name, price, link)
                     VALUES ('{d[1]}', '{d[0]}', '{d[2]}');"""
                 )
         print('[INFO] Поля добавленны в базу данных')
 
-    except Exception as ex:
-        print(f'[ERROR] - {ex}')
-
-    finally:
-        if connection:
-            connection.close()
-            print('[INFO] Соединение закрыто')
-
 
 if __name__ == '__main__':
-    save_data_in_db()
+    connection = psycopg2.connect(
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=BASE_NAME
+    )
+    data = main()
+    savedata = SaveDataInDB(data, connection)
+    savedata.save()
