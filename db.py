@@ -4,7 +4,8 @@ from config import HOST, USER, PASSWORD, BASE_NAME
 from pars import main
 
 class SaveDataInDB(object):
-
+    """Сохраняем данные в бд"""
+    
     def __init__(self, data, connection):
         self.data = data
         self.connection = connection
