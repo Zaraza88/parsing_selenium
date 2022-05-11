@@ -109,7 +109,7 @@ class Parsing(object):
         parser = SavePages(driver)
         parser.pars()
 
-    #парсим сохраненный html для дальнейшего сохранения в бд
+    #парсим сохраненный html и сохраняем его в список
     def pars_and_save_data(self):
         global data
         data = []
