@@ -13,7 +13,7 @@ class SavePages(object):
         self.driver = driver
 
     #запускаем все методы класса
-    def pars(self):
+    def start_selenium(self):
         try:
             self.open_website()
             self.go_to_the_right_page()
@@ -107,7 +107,7 @@ class Parsing(object):
             options=options
         )
         parser = SavePages(driver)
-        parser.pars()
+        parser.start_selenium()
 
     #парсим сохраненный html и сохраняем его в список
     def pars_and_save_data(self):
