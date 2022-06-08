@@ -13,7 +13,6 @@ class SavePages(object):
         self.driver = driver
 
     #запускаем все методы класса
-    @classmethod
     def start_selenium(self):
         try:
             self.open_website()
@@ -63,7 +62,6 @@ class ParseContentBlock(object):
     def __init__(self, result):
         self.result = result
     
-    @classmethod
     def parse_block(self):
         soup = BeautifulSoup(self.result, 'lxml')
 
