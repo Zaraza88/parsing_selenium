@@ -13,6 +13,7 @@ class SavePages(object):
         self.driver = driver
 
     #запускаем все методы класса
+    @classmethod
     def start_selenium(self):
         try:
             self.open_website()
@@ -61,7 +62,8 @@ class ParseContentBlock(object):
 
     def __init__(self, result):
         self.result = result
-
+    
+    @classmethod
     def parse_block(self):
         soup = BeautifulSoup(self.result, 'lxml')
 
@@ -106,8 +108,7 @@ class Parsing(object):
             executable_path='/home/zaraza/Projects/Парсер/parserDB/chromedriver',
             options=options
         )
-        parser = SavePages(driver)
-        parser.start_selenium()
+        SavePages(driver).start_selenium()
 
     #парсим сохраненный html и сохраняем его в список
     def pars_and_save_data(self):
@@ -119,8 +120,7 @@ class Parsing(object):
         for page in range(3, 6):
             with open(f"index_page_{page}.html") as file:
                 result = file.read()
-                res = ParseContentBlock(result)
-                res.parse_block()
+                ParseContentBlock(result).parse_block()
         
         return data
 
