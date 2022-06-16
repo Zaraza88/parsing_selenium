@@ -16,7 +16,6 @@
 
 ```
    - pip install -r requirements. txt
-   
 ```
 
 2. После чего пропишите данные БД в константы в файле config.py:
@@ -38,6 +37,5 @@ PATH_WEB_DRIVER =
  
 ```
    - python3 db.py
-   
 ```
 
