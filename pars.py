@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
+from config import PATH_WEB_DRIVER
 
 
 HOST = 'https://www.dns-shop.ru/'
@@ -103,7 +104,7 @@ class Parsing(object):
         )
 
         driver = webdriver.Chrome(
-            executable_path='/home/zaraza/Projects/Парсер/parserDB/chromedriver',
+            executable_path=PATH_WEB_DRIVER,
             options=options
         )
         SavePages(driver).start_selenium()
